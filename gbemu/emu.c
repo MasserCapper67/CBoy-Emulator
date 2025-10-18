@@ -21,6 +21,8 @@ static emu_context context;
 static char *emu_command = "cboy";
 static int COMMAND_ERROR = -1;
 static int ROM_ERROR = -2;
+static int CPU_STEP_ERROR = -3;
+static int DEFAULT_EXIT_CODE = 0;
 
 emu_context *emu_get_context() {
   return &context;
@@ -49,4 +51,25 @@ int emu_run(int argc, char **argv) {
   printf("TTF INIT\n");
 
   cpu_init();
+
+  context.running = true;
+  context.paused = false;
+  context.ticks = 0;
+
+  while (context.running) {
+    if (context.paused()) {
+      delay(10);
+      continue;
+    }
+
+    if (!cpu_step()) {
+      fprintf(stderr, "CPU stopped\n");
+      return CPU_STEP_ERROR;
+    }
+
+    context.ticks++;
+  }
+
+  return DEFAULT_EXIT_CODE;
 }
+
