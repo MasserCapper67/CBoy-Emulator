@@ -164,7 +164,7 @@ bool cart_load(char *cart) {
     checksum = checksum - context.rom_data[address] - 1;
   }
 
-  printf("\t Checksum: %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) = "PASSED" : "FAILED");
+  printf("\t Checksum: %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) ? "PASSED" : "FAILED");
 
   return true;
 }
