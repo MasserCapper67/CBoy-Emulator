@@ -238,19 +238,20 @@ bool cartridge_load(char *cart) {
   context.header->title[15] = 0;
 
   printf("Cartridge Loaded\n");
-  printf("\t Title    : %s\n", context.header->title);
-  printf("\t Type     : %2.2X (%s)\n", context.header->cartridge_type, cart_type_name());
-  printf("\t ROM Size : %d KB\n", 32 << context.header->rom_size);
-  printf("\t RAM Size : %2.2X\n", context.header->ram_size);
-  printf("\t LIC Code : %2.2X (%s)\n", context.header->lic_code, cart_lic_name());
-  printf("\t ROM Vers : %2.2X\n", context.header->version);
+  printf("\t Title        : %s\n", context.header->title);
+  printf("\t Type         : %2.2X (%s)\n", context.header->cartridge_type, cart_type_name());
+  printf("\t ROM Size     : %d KB\n", 32 << context.header->rom_size);
+  printf("\t RAM Size     : %2.2X\n", context.header->ram_size);
+  printf("\t LIC Code     : %2.2X (%s)\n", context.header->lic_code, cart_lic_name());
+  printf("\t NEW LIC CODE : %.2s\n", context.header->new_lic_code);
+  printf("\t ROM Vers     : %2.2X\n", context.header->version);
 
   u8 checksum = 0;
   for (u16 address = 0x0134; address <= 0x014C; address++) {
     checksum = checksum - context.rom_data[address] - 1;
   }
 
-  printf("\t Checksum : %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) ? "PASSED" : "FAILED");
+  printf("\t Checksum     : %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) ? "PASSED" : "FAILED");
 
   return true;
 }

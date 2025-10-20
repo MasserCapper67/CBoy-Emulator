@@ -6,7 +6,7 @@ typedef struct {
   u8 entry[4];
   u8 logo[0x30];
   char title[16];
-  u8 new_lic_code[2];
+  char new_lic_code[2];  //REMINDER: This string has not null terminator
   u8 sgb_flag;
   u8 cartridge_type;
   u8 rom_size;
