@@ -200,15 +200,15 @@ static const char *LIC_CODE[] = {
 };
 
 const char *cart_lic_name() {
-  if (context.header->new_lic_code <= 0xA4) {
+  if (context.header->lic_code <= 0xA4) {
     return LIC_CODE[context.header->lic_code];
   }
   return "UNKNOWN";
 }
 
 const char *cart_type_name() {
-  if (context.header->type <= 0x22) {
-    return ROM_TYPES[context.header->type];
+  if (context.header->cartridge_type <= 0x22) {
+    return ROM_TYPES[context.header->cartridge_type];
   }
   return "UNKNOWN";
 }
@@ -239,7 +239,7 @@ bool cartridge_load(char *cart) {
 
   printf("Cartridge Loaded\n");
   printf("\t Title    : %s\n", context.header->title);
-  printf("\t Type     : %2.2X (%s)\n", context.header->type, cart_type_name());
+  printf("\t Type     : %2.2X (%s)\n", context.header->cartridge_type, cart_type_name());
   printf("\t ROM Size : %d KB\n", 32 << context.header->rom_size);
   printf("\t RAM Size : %2.2X\n", context.header->ram_size);
   printf("\t LIC Code : %2.2X (%s)\n", context.header->lic_code, cart_lic_name());

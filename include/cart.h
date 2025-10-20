@@ -6,10 +6,9 @@ typedef struct {
   u8 entry[4];
   u8 logo[0x30];
   char title[16];
-  u16 new_lic_code;
-  char new_lic_code[16];
+  u8 new_lic_code[2];
   u8 sgb_flag;
-  u8 type;
+  u8 cartridge_type;
   u8 rom_size;
   u8 ram_size;
   u8 destination_code;
