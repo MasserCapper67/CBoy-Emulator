@@ -109,11 +109,10 @@ static const char *LIC_CODE[] = {
   [0x96] = "Yonezawa/S'Pal",
   [0x97] = "Kaneko",
   [0x99] = "Pack-In-Video",
-  [0x9H] = "Bottom Up",
   [0xA4] = "Konami(Yu-Gi-Oh!)",
 };
 
-static char *cart_lic_name() {
+const char *cart_lic_name() {
   if (context.header->new_lic_code <= 0xA4) {
     return LIC_CODE[context.header->lic_code];
   }
@@ -127,7 +126,7 @@ const char *cart_type_name() {
   return "UNKNOWN";
 }
 
-bool cart_load(char *cart) {
+bool cartridge_load(char *cart) {
   snprintf(context.filename, sizeof(context.filename), "%s", cart);
 
   FILE *file_pointer = fopen(cart, "r");
@@ -164,7 +163,7 @@ bool cart_load(char *cart) {
     checksum = checksum - context.rom_data[address] - 1;
   }
 
-  printf("\t Checksum: %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) ? "PASSED" : "FAILED");
+  printf("\t Checksum : %2.2X (%s)\n", context.header->checksum, (checksum & 0xFF) ? "PASSED" : "FAILED");
 
   return true;
 }

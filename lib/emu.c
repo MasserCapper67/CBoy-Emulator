@@ -29,7 +29,7 @@ emu_context *emu_get_context() {
 }
 
 void delay(u32 ms) {
-  SDL_delay(ms);
+  SDL_Delay(ms);
 }
 
 int emu_run(int argc, char **argv) {
@@ -57,7 +57,7 @@ int emu_run(int argc, char **argv) {
   context.ticks = 0;
 
   while (context.running) {
-    if (context.paused()) {
+    if (context.paused) {
       delay(10);
       continue;
     }
